@@ -1,0 +1,30 @@
+{
+  "name": "Dazn Chat",
+  "description": "Chattig Chrome Extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+      "default_popup": "index.html",
+      "default_title": "Open the popup"
+  },
+  "background": {
+    "service_worker": "./background.js"
+  },
+  "permissions": [
+    "tabs",
+    "alarms",
+    "storage",
+    "scripting",
+    "webNavigation",
+    "webRequest",
+    "identity",
+    "identity.email"
+  ],
+  "host_permissions": [
+    "*://*.samsclub.com/*",
+    "*://*.homedepot.com/p/*",
+    "https://www.walmart.com/*",
+    "http://3.86.137.112/*"
+  ]
+
+}
