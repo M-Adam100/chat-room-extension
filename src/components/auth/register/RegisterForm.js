@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import ProgressButton from "../../ProgressButton";
-import { registerAccount } from "../../../actions/auth";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import '../../../App.css';
+
+import { completeRegister, registerAccount } from "../../../actions/auth";
 import CustomFormikField from "./../../../utils/formik/CustomFormikField";
 import registerSchema from "./../../../utils/formik/registerSchema";
-
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { Container } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
@@ -26,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     padding: 0,
   },
+  textfield: {
+    borderWidth: "1px",
+    borderColor: "white !important",
+    borderRadius: '10px'
+  }
 }));
 
 const RegisterForm = ({ registerAccount, currentUser, handleNext }) => {
@@ -50,6 +58,10 @@ const RegisterForm = ({ registerAccount, currentUser, handleNext }) => {
         </IconButton>
       </InputAdornment>
     ),
+    classes: {
+      notchedOutline: classes.textfield
+    }
+
   };
 
   useEffect(() => {
@@ -62,7 +74,7 @@ const RegisterForm = ({ registerAccount, currentUser, handleNext }) => {
     <>
       <Container className={classes.titleContainer}>
         <DialogTitle className={classes.title} id="form-dialog-title">
-          Register a MaterialChat account
+          Register a Dazn Chat account
         </DialogTitle>
         <Link component={RouterLink} to="/login">
           Already have an account?
@@ -79,6 +91,7 @@ const RegisterForm = ({ registerAccount, currentUser, handleNext }) => {
         validationSchema={registerSchema}
         validateOnBlur={false}
         onSubmit={(values, { setSubmitting }) => {
+          console.log(values)
           registerAccount(values);
           setSubmitting(false);
         }}
@@ -92,6 +105,11 @@ const RegisterForm = ({ registerAccount, currentUser, handleNext }) => {
             name="username"
             type="text"
             placeholder="Username"
+            InputProps={{
+              classes: {
+                notchedOutline: classes.textfield
+              }
+            }}
           />
 
           <CustomFormikField
@@ -101,7 +119,25 @@ const RegisterForm = ({ registerAccount, currentUser, handleNext }) => {
             type="email"
             label="Email"
             placeholder="Email"
+            InputProps={{
+              classes: {
+                notchedOutline: classes.textfield
+              }
+            }}
           />
+          <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          label="Age"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+
 
           <CustomFormikField
             fullWidth
@@ -123,13 +159,14 @@ const RegisterForm = ({ registerAccount, currentUser, handleNext }) => {
             InputProps={passwordInputProps}
           />
 
-          <ProgressButton title="Sign Up" color="primary" loading="" />
-          <ProgressButton
-            title="Use Guest Account"
-            type="button"
-            variant="outlined"
-            onClick={() => history.push("/guest")}
-          />
+          <Button
+            variant="contained"
+            style={{ background: 'linear-gradient(93deg, #5D5FEF 0%, #0003FF 100%)' }}
+            type="submit"
+          >
+            Register
+          </Button>
+
         </Form>
       </Formik>
     </>

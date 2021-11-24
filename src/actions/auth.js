@@ -5,9 +5,11 @@ import {
   LOGIN_SUCCEEDED,
   LOGOUT_SUCCEEDED,
   ACCOUNT_UPDATED,
+  ADD_CHATROOM_SUCCEEDED,
 } from "./types";
 import { notify } from "./notify";
 import { emitSocketEvent } from "../socket-client/socketFunctions";
+
 
 export const getUser = () => async (dispatch) => {
   try {
@@ -20,7 +22,7 @@ export const getUser = () => async (dispatch) => {
 
       dispatch({
         type: LOGIN_SUCCEEDED,
-        payload: user,
+        payload: user
       });
     }
   } catch (error) {
@@ -41,6 +43,7 @@ export const login = (values) => async (dispatch) => {
         password: values.password,
       },
     });
+    console.log(res);
 
     dispatch(emitSocketEvent("USER_LOGGED_IN", res.data.data.user._id));
 
@@ -49,6 +52,7 @@ export const login = (values) => async (dispatch) => {
       payload: res.data.data.user,
     });
   } catch (error) {
+    console.log(error)
     console.log(error.response.data.message || `An error occurred: ${error}`);
     dispatch(notify("error", error.response.data.message));
   }
@@ -110,6 +114,7 @@ export const registerAccount = ({
 };
 
 export const completeRegister = ({ isGuest = null }) => async (dispatch) => {
+  console.log("REGISTERING")
   dispatch({
     type: REGISTER_FINAL_STEP_SUCCEEEDED,
   });
@@ -171,7 +176,7 @@ export const updatePassword = (data) => async (dispatch) => {
   try {
     const res = await axios({
       method: "PATCH",
-      url: "/api/v1/users/updateMyPassword",
+      url: "/api/v1/users/updateMyPassworrd",
       data: {
         passwordCurrent: data.passwordCurrent,
         newPassword: data.newPassword,

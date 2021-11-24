@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     paddingTop: "1.5em",
   },
+  textfield: {
+    background: "rgba(176, 173, 173, 0.9)",
+    opacity: "0.2",
+    borderRadius: "5px"
+  }
 }));
 
 const LoginDialog = ({
@@ -111,6 +116,11 @@ const LoginDialog = ({
                 name="email"
                 type="email"
                 placeholder="Email"
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.textfield
+                  }
+                }}
               />
               <CustomFormikField
                 label="Password"
@@ -139,12 +149,17 @@ const LoginDialog = ({
                       </IconButton>
                     </InputAdornment>
                   ),
+                  classes: {
+                    notchedOutline: classes.textfield
+                  }
+
                 }}
+
               />
               <DialogActions>
                 <Button
                   color="blue"
-                  style={{background: 'linear-gradient(93deg, #5D5FEF 0%, #0003FF 100%)'}}
+                  style={{ background: 'linear-gradient(93deg, #5D5FEF 0%, #0003FF 100%)' }}
                   variant="outlined"
                   onClick={async () => {
                     await setFieldValue("forgotPassword", true);
@@ -153,16 +168,9 @@ const LoginDialog = ({
                 >
                   Forgot Password
                 </Button>
+
                 <Button
-                  style={{ marginRight: "auto" }}
-                  color="primary"
-                  variant="outlined"
-                  onClick={() => history.push("/guest")}
-                >
-                  Guest Account
-                </Button>
-                <Button
-                  style={{background: 'linear-gradient(93deg, #5D5FEF 0%, #0003FF 100%)', color: 'white'}}
+                  style={{ background: 'linear-gradient(93deg, #5D5FEF 0%, #0003FF 100%)', color: 'white' }}
                   component={RouterLink}
                   variant="outlined"
                   color="primary"
@@ -172,7 +180,7 @@ const LoginDialog = ({
                 </Button>
                 <Button
                   type="submit"
-                  style={{background: 'linear-gradient(93deg, #5D5FEF 0%, #0003FF 100%)'}}
+                  style={{ background: 'linear-gradient(93deg, #5D5FEF 0%, #0003FF 100%)' }}
                   color="primary"
                   variant="contained"
                   onClick={() => setFieldValue("forgotPassword", false)}

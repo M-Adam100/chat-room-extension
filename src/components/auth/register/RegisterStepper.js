@@ -38,13 +38,14 @@ const useStyles = makeStyles((theme) => ({
 const RegisterStepper = ({
   currentUser,
   isAuthenticated,
-  completeRegister,
+  completeRegister
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
 
   useEffect(() => {
+    console.log(isAuthenticated)
     if (currentUser && isAuthenticated) {
       return history.push("/");
     }
@@ -52,9 +53,7 @@ const RegisterStepper = ({
 
   function getSteps() {
     return [
-      "Enter your account information",
-      "Choose an avatar photo (optional)",
-      "Complete Signup and Login",
+      "Enter your account information"
     ];
   }
 
